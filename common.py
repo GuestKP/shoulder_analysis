@@ -43,6 +43,9 @@ def converge_constraint(m, d):
     return True
 
 def DME(m, d, pos, body, compute=False, jacobian=False):
+    # DME https://drive.google.com/file/d/12f1hfklP6O7x7lS7g7alw3GfwRk5ctH7/view?usp=sharing
+    # and there is other metric MFE https://drive.google.com/file/d/18Lba3GnN9YxJdj9zpmfm-_6KdTSdh_gL/view?usp=sharing
+    # (second not implemented)
     jacp, jacd = np.zeros([3, m.nv]), np.zeros([3, m.nv])
     fullm = np.zeros([m.nv, m.nv])
     if compute:
@@ -53,7 +56,6 @@ def DME(m, d, pos, body, compute=False, jacobian=False):
     fulljac = np.vstack([jacp, jacd])
     if jacobian:
         return fulljac
-    # ADD literature
     m_jacPI = fullm @ np.linalg.pinv(fulljac)
     DME = m_jacPI.T @ m_jacPI
     val, vec = np.linalg.eig(DME[:3, :3])

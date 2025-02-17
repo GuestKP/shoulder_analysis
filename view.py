@@ -7,10 +7,13 @@ foldername = '.data/'
 filename = [
     'Gimbal.xml',
     '5bar.xml'
-][1]
+][0]
 [pos_end_x, pos_end_y, pos_end_z, data_i, data_j, data_if, data_jf] = np.load(foldername+filename+'.data.npy')
 dme_val = np.load(foldername+filename+'.dme_val.npy')
 dme_vec = np.load(foldername+filename+'.dme_vec.npy')
+
+data_if[np.abs(data_if) > 1] = 0
+data_jf[np.abs(data_jf) > 1] = 0
 
 pos_end = np.array([pos_end_x, pos_end_y, pos_end_z]).T
 pos_end = pos_end / np.abs(pos_end).max()
