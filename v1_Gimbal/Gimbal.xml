@@ -1,0 +1,39 @@
+<mujoco model="Gimbal">
+  <actuator>
+    <position name="JPitch" joint="JPitch" kp="1" kv="0.1" ctrlrange="-3.14 3.14"/>
+    <position name="JYaw" joint="JYaw" kp="1" kv="0.1" ctrlrange="-3.14 3.14"/>
+  </actuator>
+  <compiler angle="radian"/>
+
+  <asset>
+    <mesh name="base_link" file="base_link.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="Pitched1" file="Pitched1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="pr11" file="pr11.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="pr21" file="pr21.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="PitchRowed1" file="PitchRowed1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="motor1" file="motor1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="p11" file="p11.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <geom type="mesh" mesh="base_link"/>
+    <body name="Pitched1" pos="0 0 0.029">
+      <inertial pos="0.00584961 0 0.0380315" quat="0.999962 0 -0.00866268 0" mass="0.825419" diaginertia="0.000517819 0.000501819 0.000256549"/>
+      <joint name="JPitch" pos="0 0 0" axis="0 0 1"/>
+      <geom name="g_p" pos="0 0 -0.0289" quat="1 0 0 0" type="mesh" mesh="Pitched1"/>
+      <geom pos="0 0 -0.0289" type="mesh" mesh="p11"/>
+      <geom pos="0 0 -0.029" type="mesh" mesh="motor1"/>
+      <body name="pr11" pos="-0.0145 0 0.05">
+        <inertial pos="0.0080426 -0.0524081 0" quat="0.699108 0.699108 0.10606 0.10606" mass="0.863884" diaginertia="0.000925479 0.0008836 0.000246062"/>
+        <joint name="JYaw" pos="0 0 0" axis="-1 0 0"/>
+        <geom name="g_pr11" pos="0.0145 0 -0.079" quat="1 0 0 0" type="mesh" mesh="pr11"/>
+        <geom pos="0.0145 0 -0.079" quat="1 0 0 0" type="mesh" mesh="pr21"/>
+        <geom pos="0.0145 0 -0.079" quat="1 0 0 0" type="mesh" mesh="PitchRowed1"/>
+        <body name="end" pos="0 -0.1 0" />
+      </body>
+    </body>
+  </worldbody>
+  <contact>
+    <pair geom1="g_p" geom2="g_pr11" />
+  </contact>
+</mujoco>

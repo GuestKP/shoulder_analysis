@@ -1,0 +1,48 @@
+<mujoco>
+    <option gravity="0 0 -9.81">
+        <flag contact="disable"/>
+    </option>
+    <actuator>
+        <position name="yaw pos" gear="1" joint="yaw" kp="1000000" dampratio="1"/>
+        <position name="pitch pos" gear="1" joint="pitch" kp="1000000" dampratio="1"/>
+    </actuator>
+
+    <asset>
+        <material name="col_blue" rgba="0 0 1 1" />
+        <material name="col_green" rgba="0 1 0 1" />
+        <material name="col_red" rgba="1 0 0 1" />
+        <material name="col_white" rgba="1 1 1 1" />
+        <material name="col_la" rgba="0.5 0.7 0.5 1" />
+        <material name="col_lb" rgba="0.7 0.5 0.5 1" />
+    </asset>
+    <worldbody>
+        <body name="link_static" pos="0 0 -1">
+            <geom type="plane" size="10 10 0.1" pos="0 0 -5" rgba=".9 0 0 1" />
+
+            <geom type="box" pos="0 0 0" euler="0 0 0" size=".9 .1 .1" material="col_la" />
+            <geom type="box" pos="-1 0 .5" euler="0 0 0" size=".1 .1 .6" material="col_la" />
+            <geom type="box" pos="1 0 .5" euler="0 0 0" size=".1 .1 .6" material="col_la" />
+
+            <body name="link_cross" pos="0 0 1" euler="0 0 0">
+                <joint name="yaw" type="hinge" pos="0 0 0" axis="1 0 0" />
+                <geom type="box" pos="0 0 0" euler="0 0 0" size=".9 .1 .1" material="col_lb" />
+                <geom type="box" pos="0 0 0" euler="0 0 0" size=".1 .9 .1" material="col_lb" />
+
+                <body name="link_end" pos="0 0 0" euler="0 0 0">
+                    <joint name="pitch" type="hinge" pos="0 0 0" axis="0 1 0" />
+                    <geom type="box" pos="0 1 .5" euler="0 0 0" size=".1 .1 .6" material="col_la" />
+                    <geom type="box" pos="0 -1 .5" euler="0 0 0" size=".1 .1 .6" material="col_la" />
+                    <geom type="box" pos="0 0 1" euler="0 0 0" size=".1 .9 .1" material="col_la" />
+                    <body name="end" pos="0 0 1" euler="0 0 0">
+                        <geom type="sphere" pos="0 0 0" euler="0 0 0" size=".05" material="col_lb" mass="0" />
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+    <contact>
+        <exclude body1="link_static" body2="link_cross" />
+        <exclude body1="link_cross" body2="link_end" />
+        <exclude body1="link_static" body2="link_end" />
+    </contact>
+</mujoco>

@@ -1,0 +1,206 @@
+<?xml version="1.0" ?>
+<robot name="Gimbal">
+
+<material name="silver">
+  <color rgba="0.700 0.700 0.700 1.000"/>
+</material>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.0 0.0 0.014500000000000002" rpy="0 0 0"/>
+    <mass value="0.4292889364457271"/>
+    <inertia ixx="9.450617065462218e-05" iyy="9.450617065462592e-05" izz="0.00012884034205077198" ixy="4.4622083805734286e-20" iyz="-2.2311041902867143e-20" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="Pitched1">
+  <inertial>
+    <origin xyz="-0.002814226059408961 -4.297540919235562e-18 0.005000000000000001" rpy="0 0 0"/>
+    <mass value="0.12978958386995293"/>
+    <inertia ixx="2.334800375860895e-05" iyy="1.5069434845901245e-05" izz="3.6254278873344314e-05" ixy="1.2725228839823922e-20" iyz="-2.2311041902867137e-21" ixz="6.776263578034403e-21"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.029" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/Pitched1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.029" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/Pitched1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="pr11">
+  <inertial>
+    <origin xyz="-0.00500000000000001 -0.015162947345050762 1.3877787807814457e-17" rpy="0 0 0"/>
+    <mass value="0.2663403338699529"/>
+    <inertia ixx="0.0001597300820399244" iyy="5.180745590444144e-05" izz="0.0001123616316999819" ixy="0.0" iyz="-5.421010862427522e-20" ixz="-1.0842021724855044e-19"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0145 0.0 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/pr11.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0.0145 0.0 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/pr11.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="pr21">
+  <inertial>
+    <origin xyz="0.02221292845649448 -0.005000000000000018 1.3877787807814457e-17" rpy="0 0 0"/>
+    <mass value="0.16825458386995296"/>
+    <inertia ixx="3.136475084194188e-05" iyy="5.9045169999314296e-05" izz="3.0484662221870983e-05" ixy="2.371692252312041e-20" iyz="-3.2526065174565133e-19" ixz="-1.6940658945086007e-20"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0245 0.05 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/pr21.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0.0245 0.05 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/pr21.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="PitchRowed1">
+  <inertial>
+    <origin xyz="0.0 -0.014500000000000013 0.0" rpy="0 0 0"/>
+    <mass value="0.4292889364457274"/>
+    <inertia ixx="9.450617065462266e-05" iyy="0.00012884034205077298" izz="9.450617065462569e-05" ixy="-1.7848833522293714e-19" iyz="4.336808689942018e-19" ixz="4.4622083805734286e-20"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 0.06 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/PitchRowed1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0.0 0.06 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/PitchRowed1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="motor1">
+  <inertial>
+    <origin xyz="-0.014500000000000006 -1.0394417376599605e-17 0.0" rpy="0 0 0"/>
+    <mass value="0.4292889364457271"/>
+    <inertia ixx="0.00012884034205077255" iyy="9.450617065462266e-05" izz="9.450617065462612e-05" ixy="-4.462208380573426e-20" iyz="-1.294040430366294e-19" ixz="-2.0079937712580405e-20"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0145 0.0 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/motor1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="-0.0145 0.0 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/motor1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="p11">
+  <inertial>
+    <origin xyz="0.004999999999999996 -8.376891918203063e-18 0.034837052654949255" rpy="0 0 0"/>
+    <mass value="0.2663403338699529"/>
+    <inertia ixx="0.00015973008203992484" iyy="0.00011236163169998144" izz="5.1807455904442874e-05" ixy="-1.0039968856290203e-20" iyz="-5.318294806254232e-20" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0145 -0.0 -0.029" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/p11.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="-0.0145 -0.0 -0.029" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/p11.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="JPitch" type="continuous">
+  <origin xyz="0.0 0.0 0.029" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="Pitched1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+<transmission name="JPitch_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="JPitch">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="JPitch_actr">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<joint name="Revolute_15" type="continuous">
+  <origin xyz="-0.029 0.0 0.0" rpy="0 0 0"/>
+  <parent link="motor1"/>
+  <child link="pr11"/>
+  <axis xyz="-1.0 0.0 0.0"/>
+</joint>
+<transmission name="Revolute_15_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="Revolute_15">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Revolute_15_actr">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<joint name="Rigid_16" type="fixed">
+  <origin xyz="-0.01 -0.05 0.0" rpy="0 0 0"/>
+  <parent link="pr11"/>
+  <child link="pr21"/>
+</joint>
+
+<joint name="Rigid_17" type="fixed">
+  <origin xyz="0.0245 -0.01 0.0" rpy="0 0 0"/>
+  <parent link="pr21"/>
+  <child link="PitchRowed1"/>
+</joint>
+
+<joint name="Rigid_18" type="fixed">
+  <origin xyz="0.0 -0.0 0.05" rpy="0 0 0"/>
+  <parent link="p11"/>
+  <child link="motor1"/>
+</joint>
+
+<joint name="Rigid_19" type="fixed">
+  <origin xyz="0.0145 0.0 0.0" rpy="0 0 0"/>
+  <parent link="Pitched1"/>
+  <child link="p11"/>
+</joint>
+
+</robot>

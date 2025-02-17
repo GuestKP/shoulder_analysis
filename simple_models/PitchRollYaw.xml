@@ -1,0 +1,56 @@
+<mujoco>
+    <option gravity="0 0 -9.81">
+        <flag contact="disable"/>
+    </option>
+
+    <actuator>
+        <position name="pitch" gear="36" joint="j_pitch" kp="0.7" dampratio="1" ctrlrange="-113.1 113.1" />
+        <position name="roll"  gear="36" joint="j_roll"  kp="0.1" dampratio="1" ctrlrange="-113.1 113.1" />
+        <!--position name="yaw"   gear="36" joint="j_yaw"   kp="0.001" dampratio="1" forcelimited="true" forcerange="-60 60" ctrlrange="-113.1 113.1"/-->
+    </actuator>
+
+    <asset>
+        <material name="col_blue" rgba="0 0 1 1" />
+        <material name="col_green" rgba="0 1 0 1" />
+        <material name="col_red" rgba="1 0 0 1" />
+        <material name="col_white" rgba="1 1 1 1" />
+        <material name="col_la" rgba="0.5 0.7 0.5 1" />
+        <material name="col_lb" rgba="0.7 0.5 0.5 1" />
+    </asset>
+
+    <default>
+        <default class="x8-60">
+            <geom type="cylinder" size=".049 .029" pos="0 0 -.029" material="col_la" mass="0.9" />
+        </default>
+    </default>
+
+    <worldbody>
+        <geom type="plane" size="10 10 0.1" pos="0 0 -5" rgba=".9 0 0 1" />
+
+        <body name="pitch_base" pos="0 0 0" euler="0 90 0">
+        <geom class="x8-60" />
+            <body name="pitch" pos="0 0 0" euler="0 0 0">
+                <joint name="j_pitch" type="hinge" pos="0 0 0" axis="0 0 1" />
+
+                <body name="roll_base" pos="0 0 .1" euler="0 -90 0">
+                    <geom class="x8-60" />
+                    <body name="roll" pos="0 0 0" euler="0 0 0">
+                        <joint name="j_roll" type="hinge" pos="0 0 0" axis="0 0 1" />
+
+                        <body name="yaw_base" pos="0 .12 0" euler="-90 0 0">
+                            <geom class="x8-60" />
+                            <body name="yaw" pos="0 0 .2" euler="0 0 0">
+                                <joint name="j_yaw" type="hinge" pos="0 0 0" axis="0 0 1" />
+                                <body name="end" pos="0 0 0" euler="0 0 0">
+                                    <geom type="sphere" pos="0 0 0" euler="0 0 0" size=".05" material="col_lb" mass="0.1" />
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+    <contact>
+    </contact>
+</mujoco>
