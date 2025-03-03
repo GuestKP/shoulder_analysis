@@ -1,0 +1,68 @@
+<mujoco model="5bar">
+  <option gravity="0 0 -9.81">
+      <flag contact="disable"/>
+  </option>
+  <actuator>
+    <position name="j_a" joint="j_a" kp="0.001" kv="0.001" ctrlrange="-3.14 3.14"/>
+    <position name="j_b" joint="j_b" kp="0.001" kv="0.001" ctrlrange="-3.14 3.14"/>
+  </actuator>
+  <compiler angle="radian"/>
+
+  <asset>
+    <mesh name="base_link" file="base_link.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="base_21" file="base_21.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="base_11" file="base_11.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="cross1" file="cross1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="lb_11" file="lb_11.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="front_21" file="front_21.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="front1" file="front1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="front_31" file="front_31.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="la_31" file="la_31.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="la_11" file="la_11.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="lb_21" file="lb_21.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="la_21" file="la_21.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <geom type="mesh" mesh="base_link"/>
+    <geom type="mesh" mesh="base_21"/>
+    <geom type="mesh" mesh="base_11"/>
+    <body name="lb_11" pos="0.03 0 0">
+      <inertial pos="-0.00444611 -0.00353308 0.0142476" quat="0.700295 -0.09808 -0.263756 0.656049" mass="0.00129991" diaginertia="2.52345e-07 2.51999e-07 1.36177e-08"/>
+      <joint name="j_b" pos="0 0 0" axis="1 0 0"/>
+      <geom pos="-0.03 0 0" quat="1 0 0 0" type="mesh" mesh="lb_11"/>
+    </body>
+    <body name="cross1" pos="-0.025 0 0">
+      <inertial pos="0.025 0 0" quat="0.5 0.5 0.5 0.5" mass="0.00428847" diaginertia="8.95946e-07 8.95389e-07 5.59291e-08"/>
+      <joint name="Revolute_3" pos="0 0 0" axis="1 0 0"/>
+      <geom pos="0.025 0 0" quat="1 0 0 0" type="mesh" mesh="cross1"/>
+      <body name="front_21" pos="0.025 0 0.005">
+        <inertial pos="-1.03126e-11 -0.0121914 -0.005" quat="0.707107 0.707107 0 0" mass="0.00229395" diaginertia="2.28944e-07 1.74565e-07 8.76278e-08"/>
+        <joint name="Revolute_5" pos="0 0 0" axis="0 0 1"/>
+        <geom pos="0 0 -0.005" quat="1 0 0 0" type="mesh" mesh="front_21"/>
+        <geom pos="0 0 -0.005" type="mesh" mesh="front1"/>
+        <geom pos="0 0 -0.005" quat="1 0 0 0" type="mesh" mesh="front_31"/>
+        <body name="la_21" pos="0 -0.025 -0.005">
+          <inertial pos="-0.0075591 0.00687576 0.0125804" quat="0.908364 -0.321683 -0.251889 -0.0891458" mass="0.0013673" diaginertia="2.98766e-07 2.93464e-07 1.89781e-08"/>
+          <joint name="Revolute_14" pos="0 0 0" axis="0 -1 0"/>
+          <geom pos="0 0.025 0" type="mesh" mesh="la_21"/>
+        </body>
+          <body name="lb_21" pos="0 -0.03 -0.005">
+            <inertial pos="0.00833889 0.00338646 0.0138782" quat="0.919279 -0.28898 0.254939 0.0801414" mass="0.00204372" diaginertia="7.57484e-07 7.30188e-07 4.77358e-08"/>
+            <joint name="Revolute_13" pos="0 0 0" axis="0 -1 0"/>
+            <geom pos="0 0.03 0" type="mesh" mesh="lb_21"/>
+          </body>
+      </body>
+    </body>
+    <body name="la_31" pos="-0.03 0 0">
+      <inertial pos="0.0044461 -0.00353308 0.0142476" quat="0.656101 0.263748 0.0980998 0.700246" mass="0.00129991" diaginertia="2.52346e-07 2.51999e-07 1.36177e-08"/>
+      <joint name="j_a" pos="0 0 0" axis="-1 0 0"/>
+      <geom pos="0.03 0 0" type="mesh" mesh="la_31"/>
+      <geom pos="0.03 0 0" type="mesh" mesh="la_11"/>
+    </body>
+  </worldbody>
+  <equality>
+      <connect body1="la_21" body2="la_31" anchor="-0.020151 0.016816 0.033537" active="true" />
+      <connect body1="lb_21" body2="lb_11" anchor="0.020151 0.021816 0.033537" active="true" />
+  </equality>
+</mujoco>

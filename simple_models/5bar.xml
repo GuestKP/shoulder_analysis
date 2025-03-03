@@ -3,8 +3,8 @@
         <flag contact="disable"/>
     </option>
     <actuator>
-        <position name="phi1" gear="1" joint="left_la" kp="1000000" dampratio="1" ctrlrange="-3.1415 3.1415" />
-        <position name="phi2" gear="1" joint="right_la" kp="1000000" dampratio="1" ctrlrange="-3.1415 3.1415" />
+        <position name="j_a" gear="1" joint="j_a" kp="1000000" dampratio="1" ctrlrange="-3.1415 3.1415" />
+        <position name="j_b" gear="1" joint="j_b" kp="1000000" dampratio="1" ctrlrange="-3.1415 3.1415" />
     </actuator>
     <asset>
         <material name="col_blue" rgba="0 0 1 1" />
@@ -22,14 +22,14 @@
             <geom type="box" pos="0 -.9 0" euler="0 0 0" size=".1 .1 .1" material="col_lc" />
         </body>
 
-        <body name="left_la" pos="0 0 0" euler="0 0 0">
-            <joint name="left_la" type="hinge" pos="0 0 0" axis="0 1 0" />
+        <body name="l_prim_a" pos="0 0 0" euler="0 0 0">
+            <joint name="j_a" type="hinge" pos="0 0 0" axis="0 1 0" />
             <geom type="cylinder" fromto="0 1 0 0 1.2 0" euler="0 0 0" size=".2" material="col_lb" />
             <body name="left_la_sub1" pos="0 0 0" euler="59.25818585 0 -12">
             <geom type="cylinder" fromto="0 1 0 0 1.1 0" size=".2" material="col_lb" />
 
-            <!body name="left_lb" pos="0 0 0" euler="0 0 0">
-                <joint name="left_lb" type="hinge" pos="0 0 0" axis="0 1 0" />
+            <body name="l_sec_a" pos="0 0 0" euler="0 0 0">
+                <joint name="j_prim2sec_a" type="hinge" pos="0 0 0" axis="0 1 0" />
                 <geom type="cylinder" fromto="0 1.1 0 0 1.2 0" size=".2" material="col_la" />
                 <body name="left_lb_sub1" pos="0 0 0" euler="0 0 -78">
                 <geom type="cylinder" fromto="0 1.1 0 0 1.2 0" size=".2" material="col_la" />
@@ -39,14 +39,14 @@
             </body>
         </body>
 
-        <body name="right_la" pos="0 0 0" euler="0 0 0">
-            <joint name="right_la" type="hinge" pos="0 0 0" axis="0 1 0" />
+        <body name="l_prim_b" pos="0 0 0" euler="0 0 0">
+            <joint name="j_b" type="hinge" pos="0 0 0" axis="0 1 0" />
             <geom type="cylinder" fromto="0 -1 0 0 -1.2 0" euler="0 0 0" size=".2" material="col_lb" />
             <body name="right_la_sub1" pos="0 0 0" euler="-59.25818585 0 12">
             <geom type="cylinder" fromto="0 -1 0 0 -1.1 0" size=".2" material="col_lb" />
 
-            <body name="right_lb" pos="0 0 0" euler="0 0 0">
-                <joint name="right_lb" type="hinge" pos="0 0 0" axis="0 1 0" />
+            <body name="l_sec_b" pos="0 0 0" euler="0 0 0">
+                <joint name="j_prim2sec_b" type="hinge" pos="0 0 0" axis="0 1 0" />
                 <geom type="cylinder" fromto="0 -1.1 0 0 -1.2 0" size=".2" material="col_lc" />
                 <body name="right_lb_sub1" pos="0 0 0" euler="0 0 78">
                 <geom type="cylinder" fromto="0 -1.2 0 0 -1.3 0" size=".2" material="col_lc" />
@@ -56,18 +56,18 @@
             </body>
         </body>
 
-        <body name="crosslink" pos="0 0 0">
-            <joint name="crosslink" type="hinge" pos="0 0 0" axis="0 1 0" />
+        <body name="l_prim_cross" pos="0 0 0">
+            <joint name="j_cross" type="hinge" pos="0 0 0" axis="0 1 0" />
             <geom type="box" pos="0 0 0" euler="0 0 0" size=".1 .8 .1" material="col_la" />
             <geom type="box" pos="0 0 0" euler="0 0 0" size=".1 .1 .5" material="col_la" />
 
-            <body name="endeffector" pos="0 0 0">
-                <joint name="endeffector" type="hinge" pos="0 0 0" axis="0 0 1" />
+            <body name="l_sec_cross" pos="0 0 0">
+                <joint name="j_prim2sec_cross" type="hinge" pos="0 0 0" axis="0 0 1" />
                 <geom type="box" pos=".4 0 .6" euler="0 0 0" size=".5 .1 .1" material="col_lb" />
                 <geom type="box" pos=".4 0 -.6" euler="0 0 0" size=".5 .1 .1" material="col_lb" />
                 <geom type="box" pos=".8 0 0" euler="0 0 0" size=".1 .1 .5" material="col_lb" />
                 <geom type="cylinder" fromto="0.9 0 0 1.5 0 0" size=".1" material="col_lb" />
-                <body name="end" pos="1 0 0" euler="0 0 0">
+                <body name="l_endeffector" pos="1 0 0" euler="0 0 0">
                     <geom type="sphere" pos="0 0 0" euler="0 0 0" size=".05" material="col_lb" mass="0" />
                 </body>
             </body>
@@ -75,7 +75,7 @@
 
     </worldbody>
     <equality>
-        <connect body1="endeffector" body2="left_lb" anchor="1.1 0 0" active="true" />
-        <connect body1="endeffector" body2="right_lb" anchor="1.1 0 0" active="true" />
+        <connect body1="l_sec_cross" body2="l_sec_a" anchor="1.1 0 0" active="true" />
+        <connect body1="l_sec_cross" body2="l_sec_b" anchor="1.1 0 0" active="true" />
     </equality>
 </mujoco>

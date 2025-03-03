@@ -4,11 +4,44 @@ import mujoco.viewer
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+from scipy.spatial.transform import Rotation
 
 
-def bodynames(allnames, bodyidxs):
-    allnames = allnames.decode()
-    return [[i, allnames[bodyidxs[i]:allnames.find('\x00', bodyidxs[i])]] for i in range(len(bodyidxs))]
+def names(m, type='body'):
+    allnames = m.names.decode()
+    idxs = []
+    if type == 'body':
+        idxs = m.name_bodyadr
+    if type == 'joint':
+        idxs = m.name_jntadr
+    if type == 'equality':
+        idxs = m.name_eqadr
+    if type == 'actuator':
+        idxs = m.name_actuatoradr
+    return [allnames[idxs[i]:allnames.find('\x00', idxs[i])] for i in range(len(idxs))]
+
+
+def find_jnt_and_act(m, target_names=['j_a', 'j_b']):
+    #joints = names(m, 'joint')
+    act_names = names(m, 'actuator')
+    tacts = [act_names.index(tn) for tn in target_names]
+    tjnts = [int(m.actuator_trnid[it][0]) for it in tacts]
+    return tjnts, tacts
+
+
+def is_constrained(m):
+    return m.name_eqadr.shape[0] > 0
+
+
+def get_endeffector_idx(m, target_name='l_endeffector'):
+    return names(m, 'body').index(target_name)
+
+
+def get_endeffector_pos(d, idx):
+    return d.xpos[idx]
+
+def get_endeffector_rotmat(d, idx):
+    return Rotation.from_quat(d.xquat[idx]).as_matrix()
 
 
 def normalize(arr):
@@ -16,7 +49,7 @@ def normalize(arr):
     arr /= arr.max()
     return arr
 
-def converge_constraint(m, d):
+def converge_constraint(m, d, v=None):
     ''' Should update only constraints? does NOT account for gravity for sure '''
     d.qacc *= 0
     i = 0
@@ -33,13 +66,12 @@ def converge_constraint(m, d):
         mujoco.mj_fwdAcceleration(m, d)
         mujoco.mj_fwdConstraint(m, d)
         mujoco.mj_Euler(m, d)
+        if v:
+            if v.is_running():
+                v.sync()
+                time.sleep(m.opt.timestep)
     if max(abs(d.qacc)) > 1e-3 or max(abs(d.qvel)) > 1e-3:
         return False
-        '''print('converge_constraint error')
-        with mujoco.viewer.launch_passive(model, data) as viewer:
-            while viewer.is_running():
-                step_start = time.time()
-                viewer.sync()'''
     return True
 
 def DME(m, d, pos, body, compute=False, jacobian=False):
