@@ -1,5 +1,6 @@
 from common import names, get_endeffector_rotmat
 import numpy as np
+import mujoco
 
 
 def J_5bar_get_idxs(m):
@@ -23,6 +24,9 @@ def J_5bar(d, jidxs, endidx, endaxis=np.array([0, -1, 0])):
     return J.T
 
 
-u = np.array([0, 1, 0])
-v = np.array([1, 0, 0])
-w = np.array([0, 0, 1])
+def J_gimbal(m, d):
+    jacp, jacd = np.zeros([3, m.nv]), np.zeros([3, m.nv])
+    fullm = np.zeros([m.nv, m.nv])
+    mujoco.mj_jac(m, d, jacp, jacd, d.xpos[-1], 2)
+    mujoco.mj_fullM(m, fullm, d.qM)
+    return np.vstack([jacp, jacd])
