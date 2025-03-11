@@ -40,8 +40,11 @@ def get_endeffector_idx(m, target_name='l_endeffector'):
 def get_endeffector_pos(d, idx):
     return d.xpos[idx]
 
-def get_endeffector_rotmat(d, idx):
+def get_rotmat(d, idx):
     return Rotation.from_quat(d.xquat[idx]).as_matrix()
+
+def get_euler(d, idx):
+    return Rotation.from_quat(d.xquat[idx]).as_euler('XYZ')
 
 
 def normalize(arr):
@@ -74,7 +77,7 @@ def converge_constraint(m, d, v=None):
         return False
     return True
 
-def DME(m, d, pos, body, compute=False, jacobian=False):
+def DME(m, d, pos, body, compute=False, jacobian=False, axis=True):
     # DME https://drive.google.com/file/d/12f1hfklP6O7x7lS7g7alw3GfwRk5ctH7/view?usp=sharing
     # and there is other metric MFE https://drive.google.com/file/d/18Lba3GnN9YxJdj9zpmfm-_6KdTSdh_gL/view?usp=sharing
     # (second not implemented)
@@ -90,7 +93,10 @@ def DME(m, d, pos, body, compute=False, jacobian=False):
         return fulljac
     m_jacPI = fullm @ np.linalg.pinv(fulljac)
     DME = m_jacPI.T @ m_jacPI
-    val, vec = np.linalg.eig(DME[:3, :3])
+    if axis:
+        val, vec = np.linalg.eig(DME[3:, 3:])
+    else:
+        val, vec = np.linalg.eig(DME[:3, :3])
     val[val == 0] = 1e-5
     val = np.sqrt(val)
     val = 1 / val

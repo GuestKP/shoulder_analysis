@@ -3,12 +3,13 @@ from common import *
 import os
 
 class StaticLogger:
-    def __init__(self, model, save_name, act_idxs, actjnt_idxs, eef_idx):
+    def __init__(self, model, save_name, act_idxs, actjnt_idxs, eef_idx, eef_vec):
         self.model = model
         self.act_idxs = act_idxs
         self.actjnt_idxs = actjnt_idxs
         self.save_name = save_name
         self.eef_idx = eef_idx
+        self.eef_vec = eef_vec
         self.reset_data()
         
     def reset_data(self):
@@ -28,7 +29,9 @@ class StaticLogger:
             data.qfrc_inverse[self.actjnt_idxs] /
             self.model.actuator_gear[self.act_idxs, 0]
         )
-        self.data_eef_pos.append(np.array(data.xpos[self.eef_idx]))
+        pos = np.zeros([3])
+        mujoco.mju_rotVecQuat(pos, self.eef_vec, data.xquat[self.eef_idx])
+        self.data_eef_pos.append(pos)
 
         if do_dme:
             val, vec = DME(self.model, data, data.xpos[self.eef_idx], True)

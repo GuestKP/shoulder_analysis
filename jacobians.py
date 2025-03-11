@@ -1,4 +1,4 @@
-from common import names, get_endeffector_rotmat
+from common import names, get_rotmat
 import numpy as np
 import mujoco
 
@@ -14,7 +14,7 @@ def J_5bar_get_idxs(m):
     ]
 
 def J_5bar(d, jidxs, endidx, endaxis=np.array([0, -1, 0])):
-    v = get_endeffector_rotmat(d, endidx) @ endaxis
+    v = get_rotmat(d, endidx) @ endaxis
     J = np.zeros([2, 3])
     for i, [ui, wi] in enumerate(jidxs):
         u = d.xaxis[ui]
