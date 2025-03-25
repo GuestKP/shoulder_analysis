@@ -26,7 +26,7 @@ model = mujoco.MjModel.from_xml_path(f'simple_models/{model_filename}')
 #print('a', model.jnt_actfrclimited)
 data = mujoco.MjData(model)
 
-print(*list(zip(bodynames(model.names, model.name_bodyadr), model.body_mass)), sep='\n')
+#print(*list(zip(bodynames(model.names, model.name_bodyadr), model.body_mass)), sep='\n')
 
 print('--:', model.paths)
 print(f'{model.nv = }')

@@ -3,8 +3,8 @@
       <flag contact="disable"/>
   </option>
   <actuator>
-    <position name="JPitch" joint="JPitch" kp="1" kv="0.1" ctrlrange="-3.14 3.14"/>
-    <position name="JYaw" joint="JYaw" kp="5" kv="1" ctrlrange="-3.14 3.14"/>
+    <position name="JPitch" joint="JPitch" kp="1" dampratio="1" ctrlrange="-3.14 3.14"/>
+    <position name="JYaw" joint="JYaw" kp="5" dampratio="1" ctrlrange="-3.14 3.14"/>
   </actuator>
   <compiler angle="radian" eulerseq="xyz"/>
 
@@ -32,7 +32,7 @@
         <geom name="g_pr11" pos="0.0145 0 -0.079" quat="1 0 0 0" type="mesh" mesh="pr11"/>
         <geom pos="0.0145 0 -0.079" quat="1 0 0 0" type="mesh" mesh="pr21"/>
         <geom pos="0.0145 0 -0.079" quat="1 0 0 0" type="mesh" mesh="PitchRowed1"/>
-        <body name="l_endeffector" pos="0 -0.1 0" euler="0 0 1.5707963" />
+        <body name="l_endeffector" pos="0 -0.1 0" euler="0 0 0" />
       </body>
     </body>
   </worldbody>

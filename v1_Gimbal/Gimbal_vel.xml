@@ -1,7 +1,7 @@
 <mujoco model="Gimbal">
   <actuator>
-    <velocity name="JPitch" joint="JPitch" kv="2"/>
-    <velocity name="JYaw" joint="JYaw" kv="2"/>
+    <velocity name="JPitch" joint="JPitch" kv="3"/>
+    <velocity name="JYaw" joint="JYaw" kv="3"/>
   </actuator>
   <compiler angle="radian"/>
 
